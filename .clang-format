@@ -1,0 +1,57 @@
+# clang-format configuration
+
+BasedOnStyle: LLVM # Start with the LLVM style as a base.
+IndentWidth: 4 # Use 4 spaces for indentation.
+TabWidth: 4 # Use 4 spaces for tab width.
+UseTab: Never # Always use spaces, no tabs.
+
+# Line length and formatting rules
+ColumnLimit: 80 # Enforce 80 character limit per line.
+BreakBeforeBraces: Attach # Keep opening braces on the same line as the statement.
+AllowShortFunctionsOnASingleLine: Empty # Only allow completely empty functions on one line.
+
+# Indentation and brace wrapping
+IndentCaseLabels: true # Indent case labels in switch statements.
+IndentWrappedFunctionNames: false # Function names remain aligned when wrapped.
+IndentPPDirectives: AfterHash # Indent preprocessor directives after the hash symbol.
+AlignConsecutiveAssignments: true # Align assignments across lines for better readability.
+AlignTrailingComments: true # Align trailing comments.
+AlignAfterOpenBracket: Align # Align parameters after an opening bracket in function signatures.
+
+# Pointer alignment
+PointerAlignment: Left # Bind pointers to the type (e.g., char* ptr).
+
+# Space handling
+SpaceBeforeParens: ControlStatements # Add space before parentheses in control statements (if, for, while).
+SpaceAfterCStyleCast: true # Add a space after C-style casts.
+# SpaceAroundOperators: true # Add space around operators.
+SpaceAfterLogicalNot: true # Add space after logical not (!).
+SpaceBeforeAssignmentOperators: true # Add space before assignment operators.
+SpaceBeforeCpp11BracedList: false # Do not add space before brace-enclosed initializers.
+
+# Ternary operator formatting
+
+# Comments
+CommentPragmas: "^ IWYU pragma:" # Respect Include-What-You-Use pragma.
+SortIncludes: false # Keep include order as is.
+KeepEmptyLinesAtTheStartOfBlocks: false # Remove empty lines at the start of blocks.
+
+# Function declaration and return type alignment
+BreakBeforeTernaryOperators: true # Break long ternary expressions onto new lines.
+PenaltyBreakComment: 60 # Penalty for breaking comments into multiple lines.
+
+# Include formatting
+IncludeBlocks: Preserve # Preserve the current formatting of include blocks.
+SpaceBeforeSquareBrackets: false # No space before square brackets.
+
+# Struct and class formatting
+AlwaysBreakAfterReturnType: None # Don't break after return type unless it exceeds the column limit.
+BinPackParameters: false # Do not pack function parameters onto one line if they exceed the limit.
+BinPackArguments: false # Do not pack function arguments onto one line if they exceed the limit.
+BreakBeforeBinaryOperators: NonAssignment # Only break before non-assignment operators.
+ConstructorInitializerIndentWidth: 4 # Set constructor initializer indentation.
+
+# Custom naming strategies
+IncludeIsMainRegex: ".*" # Regex pattern to detect main include files (leave default).
+MaxEmptyLinesToKeep: 1 # Limit consecutive empty lines to 1.
+
