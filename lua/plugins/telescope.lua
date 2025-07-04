@@ -37,16 +37,6 @@ return {
       pcall(telescope.load_extension, ext)
     end
 
-    -- Helper: Get first LSP client offset encoding
-    local function get_lsp_encoding()
-      for _, client in ipairs(vim.lsp.get_active_clients { bufnr = 0 }) do
-        if client.offset_encoding then
-          return client.offset_encoding
-        end
-      end
-      return 'utf-8'
-    end
-
     local map = vim.keymap.set
     local opts = { noremap = true, silent = true }
 
@@ -78,11 +68,6 @@ return {
     map('n', '<leader>sn', function()
       builtin.find_files { cwd = stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
-
-    -- Optional: encoding-aware LSP pickers (if needed)
-    map('n', '<leader>srf', function()
-      builtin.lsp_references { position_encoding = get_lsp_encoding() }
-    end, { desc = '[S]earch LSP [R]e[F]erences (utf-8 safe)' })
   end,
 }
 -- vim: ts=2 sts=2 sw=2 et

@@ -31,7 +31,6 @@ return {
         prepend_args = function(_, ctx)
           local config_path = vim.fn.fnamemodify(vim.env.MYVIMRC or '', ':h') .. '/.clang-format'
           if vim.fn.filereadable(config_path) == 1 then
-            vim.notify('[conform] Using .clang-format at ' .. config_path, vim.log.levels.INFO)
             return {
               '--style=file:' .. config_path,
               '--fallback-style=none',
@@ -59,5 +58,4 @@ return {
     notify_no_formatters = true,
   },
 }
--- vim: ts=2 sts=2 sw=2 et
 -- vim: ts=2 sts=2 sw=2 et
