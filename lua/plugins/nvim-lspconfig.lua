@@ -164,9 +164,19 @@ return {
 
       require('clangd_extensions').setup {
         server = {
+          cmd = {
+            'clangd',
+            '--fallback-style=none', -- So only .clang-format is used
+            '--clang-tidy',
+            '--enable-config',
+          },
           capabilities = vim.tbl_deep_extend('force', {}, capabilities, {
             offsetEncoding = { 'utf-8' },
           }),
+          root_dir = function(fname)
+            local util = require 'lspconfig.util'
+            return util.root_pattern('.clang-format', '.git')(fname) or vim.fn.expand '$HOME/.config/nvim'
+          end,
         },
       }
 

@@ -22,6 +22,7 @@ vim.opt.listchars = {
 
 -- Line numbers
 vim.opt.relativenumber = true
+vim.opt.modeline = true
 
 -- Searching
 vim.opt.ignorecase = true
@@ -39,17 +40,17 @@ vim.opt.splitbelow = true
 
 -- File handling
 vim.opt.hidden = true
-vim.opt.modeline = true
 vim.opt.autochdir = true
 vim.opt.undofile = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 
 -- Tabs and indentation
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.expandtab = false
+vim.opt.tabstop = 8
+vim.opt.shiftwidth = 8
 vim.opt.smartindent = true
+vim.opt.softtabstop = 0
 vim.opt.breakindent = true
 
 -- Input
