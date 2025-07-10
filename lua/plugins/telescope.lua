@@ -40,6 +40,13 @@ return {
     local map = vim.keymap.set
     local opts = { noremap = true, silent = true }
 
+    -- LSP-related pickers
+    map('n', '<leader>ssy', builtin.lsp_dynamic_workspace_symbols, { desc = '[S]earch [Sy]mbols in Workspace' })
+    map('n', '<leader>ssd', builtin.lsp_document_symbols, { desc = '[S]earch [S]ymbols in current [D]ocument' })
+    map('n', '<leader>sgr', builtin.lsp_references, { desc = '[S]earch [G]oto [R]eferences' })
+    map('n', '<leader>sgd', builtin.lsp_definitions, { desc = '[S]earch [G]oto [D]efinition' })
+    map('n', '<leader>sgi', builtin.lsp_implementations, { desc = '[S]earch [G]oto [I]mplementations' })
+    map('n', '<leader>sgt', builtin.lsp_type_definitions, { desc = '[S]earch [G]oto [T]ype Definition' })
     map('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     map('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     map('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
