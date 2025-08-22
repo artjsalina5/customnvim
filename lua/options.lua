@@ -51,7 +51,7 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 vim.opt.softtabstop = 0
-vim.opt.breakindent = true
+vim.opt.breakindent = false
 
 -- Input
 vim.opt.mouse = ''

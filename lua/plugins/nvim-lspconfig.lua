@@ -70,14 +70,6 @@ return {
       local sysname = vim.loop.os_uname().sysname
       local clangd_cmd = { 'clangd', '--fallback-style=none' }
 
-      if sysname:match 'Windows' then
-        local gcc_toolchain = vim.env.W64DEVKIT_HOME and vim.env.W64DEVKIT_HOME or nil
-        if gcc_toolchain then
-          table.insert(clangd_cmd, '--target=x86_64-w64-mingw32')
-          table.insert(clangd_cmd, '--gcc-toolchain=' .. gcc_toolchain)
-        end
-      end
-
       -- clangd
       vim.lsp.config('clangd', {
         cmd = clangd_cmd,
@@ -151,25 +143,6 @@ return {
         severity_sort = true,
         float = { border = 'rounded' },
       }
-
-      vim.api.nvim_create_autocmd('FileType', {
-        pattern = { 'c', 'cpp' },
-        callback = function()
-          vim.opt_local.smartindent = false
-          vim.opt_local.cindent = false
-          vim.opt_local.indentexpr = '' -- don’t auto-indent
-        end,
-      })
-
-      -- Autocmd for LSP attach
-      vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('my.lsp.attach', { clear = true }),
-        callback = function(args)
-          local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-          local bufnr = args.buf
-          -- attach keymaps here if needed
-        end,
-      })
     end,
   },
 
@@ -190,7 +163,7 @@ return {
     opts = {
       notify_on_error = true,
       format_on_save = function(bufnr)
-        local disable_filetypes = { c = true, cpp = true } -- don't fallback to clangd
+        local disable_filetypes = { c = true, cpp = true }
         return {
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -214,14 +187,12 @@ return {
           prepend_args = function(_, ctx)
             local config_path = vim.fn.fnamemodify(vim.env.MYVIMRC, ':h') .. '/.clang-format'
             if vim.fn.filereadable(config_path) == 1 then
-              print('Using .clang-format file: ' .. config_path)
               return {
                 '--style=file:' .. config_path,
                 '--fallback-style=none',
                 '--assume-filename=' .. ctx.filename,
               }
             else
-              print('No .clang-format file found at: ' .. config_path)
               return {}
             end
           end,
