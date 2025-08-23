@@ -28,6 +28,7 @@ return {
         'pyright',
         'texlab',
         'marksman',
+        'hls',
       },
     },
   },
@@ -112,6 +113,9 @@ return {
         cmd = { 'marksman' },
         filetypes = { 'markdown' },
       })
+
+      -- Haskell
+      vim.lsp.enable('hls')
 
       -- VHDL (rust_hdl)
       vim.lsp.config('rust_hdl', {

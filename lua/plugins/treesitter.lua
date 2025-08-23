@@ -11,6 +11,8 @@ return {
       'luadoc',
       'markdown',
       'markdown_inline',
+      'cpp',
+      'haskell',
       'ninja',
       'python',
       'query',
