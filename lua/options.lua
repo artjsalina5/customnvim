@@ -71,3 +71,5 @@ end
 
 -- Set manual page viewer depending on platform
 vim.g.manpager = vim.fn.has 'win32' == 1 and 'wsl man' or 'man'
+
+-- vim: ts=2 sts=2 sw=2 et

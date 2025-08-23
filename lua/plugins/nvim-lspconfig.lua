@@ -1,26 +1,12 @@
 return {
-  -- Mason core
-  {
-    'mason-org/mason.nvim',
-    opts = {
-      ui = {
-        icons = {
-          package_installed = '✓',
-          package_pending = '➜',
-          package_uninstalled = '✗',
-        },
-      },
-    },
-  },
-
-  -- Mason LSPConfig bridge
   {
     'mason-org/mason-lspconfig.nvim',
     dependencies = {
-      'mason-org/mason.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
       'neovim/nvim-lspconfig',
     },
     opts = {
+      ---@type string[]
       ensure_installed = {
         'lua_ls',
         'rust_analyzer',
@@ -30,6 +16,8 @@ return {
         'marksman',
         'hls',
       },
+      ---@type boolean | string[] | { exclude: string[] }
+      automatic_enable = true,
     },
   },
 
@@ -37,21 +25,18 @@ return {
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     opts = {
+      ---@type string[]j
       ensure_installed = {
         'vim-language-server',
-        'stylua',
         'clang-format',
         'vsg',
         'shfmt',
+        'lua_ls',
         'prettierd',
         'isort',
         'black',
         'bibtex-tidy',
       },
-      auto_update = true,
-      run_on_start = true,
-      start_delay = 3000,
-      debounce_hours = 5,
       integrations = { ['mason-lspconfig'] = true },
     },
   },
@@ -66,10 +51,6 @@ return {
         capabilities = vim.lsp.protocol.make_client_capabilities(),
         root_markers = { '.git' },
       })
-
-      -- Detect platform + w64devkit GCC toolchain
-      local sysname = vim.loop.os_uname().sysname
-      local clangd_cmd = { 'clangd', '--fallback-style=none' }
 
       -- clangd
       vim.lsp.config('clangd', {
@@ -115,7 +96,7 @@ return {
       })
 
       -- Haskell
-      vim.lsp.enable('hls')
+      -- vim.lsp.enable 'hls'
 
       -- VHDL (rust_hdl)
       vim.lsp.config('rust_hdl', {
@@ -123,18 +104,6 @@ return {
         filetypes = { 'vhdl' },
         root_markers = { '.git' },
       })
-
-      -- Enable servers
-      for _, server in ipairs {
-        'clangd',
-        'lua_ls',
-        'pyright',
-        'texlab',
-        'marksman',
-        'rust_hdl',
-      } do
-        vim.lsp.enable(server)
-      end
 
       -- Diagnostics styling
       vim.diagnostic.config {
@@ -174,7 +143,6 @@ return {
         }
       end,
       formatters_by_ft = {
-        lua = { 'stylua' },
         python = { 'isort', 'black' },
         javascript = { 'prettierd' },
         typescript = { 'prettierd' },
